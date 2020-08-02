@@ -18,3 +18,8 @@ Route::group(['prefix' => '/auth', ['middleware' => 'throtlle:20,5']], function 
   Route::post('/register', 'Auth\RegisterController@register')->name('register');
   Route::post('/login', 'Auth\LoginController@login')->name('login');
 });
+
+Route::group(['middleware' => 'jwt.auth'], function () {
+  Route::get('/me', 'MeController@index')->name('me');
+  Route::get('/auth/logout', 'MeController@logout')->name('logout');
+});
